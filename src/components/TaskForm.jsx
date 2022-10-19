@@ -1,34 +1,37 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import { TaskContext } from '../context/TaskContext'
 
-export function TaskForm({createTask}) {
-
-    const [title, setTitle] = useState("")
+export function TaskForm() {
+    const [title, setTitle] = useState("");
     const [description, setDescription] = useState("")
+    const { createTask } = useContext(TaskContext)
 
     const handleSumit = (e) => {
         e.preventDefault();
         createTask({
             title,
-            description
+            description,
         });
-        setTitle('')
-        setDescription('')
-    }
+        setTitle("");
+        setDescription("");
+    };
 
   return (
-    <form onSubmit={handleSumit}>
-        <input placeholder='Escribe tu tarea'
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            autoFocus
-        />
-        <textarea placeholder='Escribe la descripcion de la tarea'
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-        ></textarea>
-        <button>guardar</button>
-    </form>
-    
+    <div>
+        <form onSubmit={handleSumit}>
+            <h1>Crea tu tarea</h1>
+            <input placeholder='Escribe tu tarea'
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                autoFocus
+            />
+            <textarea placeholder='Escribe la descripcion de la tarea'
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+            ></textarea>
+            <button>guardar</button>
+        </form>
+    </div>
   );
 }
 
